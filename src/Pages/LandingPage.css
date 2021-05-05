@@ -1,0 +1,117 @@
+.landing-page {
+    padding-top: 48px;
+}
+/*
+  title-box
+*/
+.title-box {
+    display: flex;
+    align-items: center;
+    height: 48px;
+}
+.heading {
+    font-size: 42px;
+    font-weight: 600;
+    margin-right: auto;
+}
+.tool-bar {
+    display: flex;
+    height: 100%;
+}
+.tool-bar-icon {
+    display: flex;
+    height: 100%;
+    width: 64px;
+    justify-content: center;
+    align-items: center;
+}
+.search {
+    width: 300px;
+    height: 30px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-left: 16px;
+}
+.btn-create {
+    background: #341eff;
+    border-radius: 8px;
+    color: white;
+    border: none;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-left: 16px;
+}
+
+/*
+  tab-bar
+*/
+.tab-bar {
+    margin-top: 42px;
+    height: 36px;
+}
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 400px;
+}
+.tab {
+    padding: 0 8px 8px 8px;
+}
+.tab:hover {
+    border-bottom: 2px solid #000;
+}
+/*
+  status-grid
+*/
+.status-grid {
+    width: 100%;
+    margin-top: 42px;
+    display: flex;
+    justify-content: space-between;
+}
+.status {
+    width: 23%;
+}
+.status-bar {
+    display: flex;
+    height: 24px;
+    align-items: center;
+    margin-bottom: 64px;
+}
+.status-title {
+    display: flex;
+    align-items: center;
+}
+.status-title p {
+    margin: 0;
+    font-weight: 600;
+}
+.status-sort {
+    margin-left: auto;
+}
+.status-sort select {
+    border: none;
+    position: relative;
+    bottom: 2px;
+    color: #aaa;
+}
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 16px;
+}
+.blue {
+    background: cornflowerblue;
+}
+.red {
+    background: orangered;
+}
+.purple {
+    background: mediumpurple;
+}
+.green {
+    background: greenyellow;
+}

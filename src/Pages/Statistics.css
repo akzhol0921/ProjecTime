@@ -1,0 +1,23 @@
+.stat-page {
+    padding-top: 48px;
+    width: 100%;
+    min-height: 100vh;
+}
+.statisics-title {
+    font-size: 20px;
+}
+
+.stat {
+    border: 1px solid #ccc;
+    padding: 8px 16px;
+}
+.stat p:nth-child(2) {
+    font-size: 32px;
+}
+.chart-box {
+    width: 67%;
+}
+.chart-title {
+    font-size: 20px;
+    margin: 32px 0;
+}
