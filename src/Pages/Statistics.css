@@ -3,8 +3,35 @@
     width: 100%;
     min-height: 100vh;
 }
-.statisics-title {
+
+.stat-title-box {
+    display: flex;
+    justify-content: space-between;
+}
+.statisics-title-a {
     font-size: 20px;
+}
+
+.statisics-title-b {
+    font-size: 20px;
+    padding-right: 420px;
+}
+
+.stats-box {
+    display: flex;
+    width: 100%;
+}
+.stats {
+    flex: 2;
+    display: flex;
+    height: 100px;
+    flex-wrap: wrap;
+}
+.stat-card {
+    width: 250px;
+}
+.bug-box {
+    flex: 1;
 }
 
 .stat {
@@ -15,7 +42,7 @@
     font-size: 32px;
 }
 .chart-box {
-    width: 67%;
+    width: 87%;
 }
 .chart-title {
     font-size: 20px;

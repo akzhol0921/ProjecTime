@@ -1,0 +1,60 @@
+.bug-page {
+    width: 90%;
+    height: 660px;
+    padding: 18px 24px;
+    border: 1px #f3f3f3 solid;
+    border-radius: 8px;
+}
+.bug-page-p {
+    color: #bababa;
+    font-size: 16px;
+}
+
+.bug-parameter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bug-parameter-a {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.bug-parameter-b {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.bug-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bug-style {
+    margin-right: 20px;
+    border-left: 2px #8adafc solid;
+}
+
+.bug-name {
+    margin-left: 16px;
+}
+
+.bug-name-a {
+    margin-bottom: 1px;
+    font-size: 16px;
+}
+
+.bug-name-b {
+    margin-bottom: 0px;
+    font-size: 12px;
+    color: #ababbd;
+}
+
+.bug-img img {
+    width: 32px;
+    margin-left: -8px;
+    border-radius: 50%;
+    border: 2px white solid;
+}

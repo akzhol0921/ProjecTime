@@ -1,0 +1,18 @@
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.uatable-box {
+    width: 60%;
+    height: 256px;
+}
+
+.uachart-box {
+    width: 40%;
+    height: 256px;
+    background-color: #fafafa;
+}
