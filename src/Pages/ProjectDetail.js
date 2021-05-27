@@ -4,9 +4,19 @@ import './ProjectDetail.css'
 import {BsThreeDots} from 'react-icons/bs';
 import {AiFillGithub} from 'react-icons/ai';
 import {DiPhotoshop} from "react-icons/all";
-import {CaretRightFilled,CaretLeftFilled,FileWordOutlined,FileExcelOutlined,FilePptOutlined} from '@ant-design/icons'
-import {Card, Collapse, Image, Timeline, Tooltip} from "antd";
-const { Panel } = Collapse;
+import {Row, Col} from 'antd';
+import {
+    CaretRightFilled,
+    CaretLeftFilled,
+    FileWordOutlined,
+    FileExcelOutlined,
+    FilePptOutlined
+} from '@ant-design/icons'
+import {Collapse, Image, Timeline, Tooltip} from "antd";
+import settings from "../settings";
+import ReactMarkdown from 'react-markdown'
+
+const {Panel} = Collapse;
 
 function ProjectDiscussion() {
     return <div className="project-discussion-box">
@@ -107,8 +117,17 @@ class ProjectDetail extends Component {
             timeline: false,
             pageLeft: true,
             pageRight: false,
-            leftWidth: null
+            leftWidth: null,
+            projectContent: '',
         }
+        fetch(settings.server.host + "/project/getProjectContent?id=1")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data[0]);
+                this.setState({
+                    projectContent: data[0]
+                })
+            });
 
     }
 
@@ -136,6 +155,7 @@ class ProjectDetail extends Component {
             })
         }
     }
+
     SwipePage(page) {
         if (page === 'right') {
             this.setState({
@@ -151,10 +171,28 @@ class ProjectDetail extends Component {
         }
     }
 
+    renderers = {
+        //This custom renderer changes how images are rendered
+        //we use it to constrain the max width of an image to its container
+        image: ({
+                    alt,
+                    src,
+                    title,
+                }) => (
+            <Image
+                alt={alt}
+                src={src}
+                title={title}
+                style={{maxWidth: 475}}/>
+        ),
+    };
+
     render() {
         return (
             <div className="detail-page">
-                <div className={this.state.pageRight? 'detail-page-left page-to-left': 'detail-page-left page-to-right'} ref={this.leftPage}>
+                <div
+                    className={this.state.pageRight ? 'detail-page-left page-to-left' : 'detail-page-left page-to-right'}
+                    ref={this.leftPage}>
                     <div className="action-bar">
                         <div className="return-div">
                             <i>&#x2190;</i>
@@ -170,8 +208,8 @@ class ProjectDetail extends Component {
 
                         </div>
                     </div>
-                    <div className="content-container">
-                        <div className="project-property">
+                    <Row className="content-container">
+                        <Col span={6} className="project-property">
                             <div className="project-leader-box">
                                 <h5>Project Leader</h5>
                                 <div className="project-leader">
@@ -227,42 +265,17 @@ class ProjectDetail extends Component {
                             <div className="project-step">
                                 <button>Change to next Stage</button>
                             </div>
-                        </div>
-                        <div className="project-content">
-                        <pre className="project-title">
-                            ProjecTime - React Based Project
-                            Design for Project Management
-                        </pre>
-                            <p className="project-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Aliquam assumenda commodi corporis delectus dignissimos dolorum ea fuga, in iste minima
-                                molestiae nostrum possimus quaerat quam qui quibusdam</p>
-                            <div className="project-attachments-box">
-                                <h4>Attachments</h4>
-                                <div className="project-attachments">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1619614573488-6066b9e6278e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
-                                        alt=""/>
-                                    <img
-                                        src="https://images.unsplash.com/photo-1619629501066-3721fc778449?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-                                        alt=""/>
-                                    <img
-                                        src="https://images.unsplash.com/photo-1619628410210-ed52f0391dc0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80"
-                                        alt=""/>
-                                </div>
-                                <div>
-                                    <h4>Todo List</h4>
-                                    <div className="todo-lists">
-                                        <div className="todo-list"><input type="checkbox" id="scales"/><label
-                                            htmlFor="scales">Design of Project</label></div>
-                                        <div className="todo-list"><input type="checkbox" id="scales"/><label
-                                            htmlFor="scales">Front-End Coding Part</label></div>
-                                        <div className="todo-list"><input type="checkbox" id="scales"/><label
-                                            htmlFor="scales">Server Responding</label></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="project-discussions">
+                        </Col>
+                        <Col span={11} className="project-content">
+                            <ReactMarkdown className="project-content-markdown"
+                                           components={{
+                                               img: ({node, src}) => <Image style={{color: 'red'}} src={src} width="32%"
+                                                                            height={250}/>
+                                           }}>
+                                {this.state.projectContent.content}
+                            </ReactMarkdown>
+                        </Col>
+                        <Col span={6} className="project-discussions">
                             <div className="project-tab">
                                 <div className="discussion-tab"
                                      onClick={(e) => this.ChangeTab('discussion', e)}>
@@ -271,36 +284,39 @@ class ProjectDetail extends Component {
                                 <div className="timeline-tab" onClick={(e) => this.ChangeTab('timeline', e)}>
                                     Task Timeline
                                 </div>
-                                <div className={this.state.discussion ? 'tab-line discussion-line tab-to-left': 'tab-line tab-to-right timeline-line'}/>
+                                <div
+                                    className={this.state.discussion ? 'tab-line discussion-line tab-to-left' : 'tab-line tab-to-right timeline-line'}/>
                             </div>
                             <TabContent discussion={this.state.discussion} timeline={this.state.timeline}/>
-                        </div>
-                        <div className="project-right-arrow-box">
+                        </Col>
+                        <Col span={1} className="project-right-arrow-box">
                             <Tooltip title="Click to see more">
-                                <CaretRightFilled className="project-right-arrow" onClick={(e) => this.SwipePage('right', e)} />
+                                <CaretRightFilled className="project-right-arrow"
+                                                  onClick={(e) => this.SwipePage('right', e)}/>
                             </Tooltip>
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
                 </div>
-                <div className={this.state.pageRight ? 'detail-page-right page-to-left': 'detail-page-right page-to-right'} >
+                <div
+                    className={this.state.pageRight ? 'detail-page-right page-to-left' : 'detail-page-right page-to-right'}>
                     <div className="project-left-arrow-box">
                         <Tooltip title="Go Back">
-                            <CaretLeftFilled className="project-left-arrow" onClick={(e) => this.SwipePage('left', e)} />
+                            <CaretLeftFilled className="project-left-arrow" onClick={(e) => this.SwipePage('left', e)}/>
                         </Tooltip>
                     </div>
                     <div className="project-files">
                         <h1>Project Files</h1>
                         <div className="project-file-list">
                             <div className="project-file">
-                                <FileWordOutlined style={{color:'blue'}} />
+                                <FileWordOutlined style={{color: 'blue'}}/>
                                 <p>Project Demand.doc</p>
                             </div>
                             <div className="project-file">
-                                <FileExcelOutlined style={{color:'green'}} />
+                                <FileExcelOutlined style={{color: 'green'}}/>
                                 <p>Project Demand.excel</p>
                             </div>
                             <div className="project-file">
-                                <FilePptOutlined  style={{color:'orange'}} />
+                                <FilePptOutlined style={{color: 'orange'}}/>
                                 <p>Project Demand.ppt</p>
                             </div>
                         </div>
@@ -309,7 +325,8 @@ class ProjectDetail extends Component {
                         <h1>Project Bugs</h1>
                         <Collapse defaultActiveKey={['1']} className="project-bug-list">
                             <Panel header="This is panel header 1" key="1">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque quasi vel voluptate voluptatem!</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque quasi vel voluptate
+                                    voluptatem!</p>
                                 <Image src="/avatar.jpg" alt="" className="project-bug-img"/>
                                 <Image src="/avatar.jpg" alt="" className="project-bug-img"/>
                                 <Image src="/avatar.jpg" alt="" className="project-bug-img"/>

@@ -71,7 +71,6 @@
 */
 .project-property {
     display: flex;
-    flex: 3;
     flex-wrap: wrap;
     flex-direction: column;
     position: relative;
@@ -205,8 +204,11 @@
 */
 .project-content {
     display: flex;
-    flex: 3;
     flex-direction: column;
+}
+.project-content-markdown {
+    overflow-y: scroll;
+    height: calc(100vh - 36px - 48px - 48px - 36px);
 }
 
 .project-title {
@@ -259,7 +261,6 @@
 
 
 .project-right-arrow-box {
-    flex: 0.5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -272,7 +273,6 @@
 
 .project-discussions {
     display: flex;
-    flex: 3;
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
@@ -505,7 +505,7 @@
     position: relative;
     display: flex;
     flex: 0 0 100%;
-    right: 0%;
+    right: 0;
 }
 
 .project-left-arrow-box {

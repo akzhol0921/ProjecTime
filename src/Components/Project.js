@@ -3,27 +3,28 @@ import './Project.css'
 import { useHistory } from "react-router-dom";
 function Project(props) {
     const history = useHistory();
+    const projectData = props.projectData
     function OpenDetail(){
         history.push("/detail");
     }
     return <div className="project-card" onClick={OpenDetail}>
         <div className="project-stat">
             <div className="project-status">
-                Proposed
+                {projectData.status}
             </div>
             <div className="project-date">
-                Mon, Jun 12
+                {projectData.create_time}
             </div>
         </div>
         <div className="project-desc">
-            <div className="project-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure quam totam
-                unde.
+            <div className="project-text">
+                {projectData.title}
             </div>
             <div className="project-img">
                 <img src="/project-img.png" alt=""/>
             </div>
         </div>
-        <div className="project-property">
+        <div className="project-prop">
             <div className="project-attendant">
                 <img src="/avatar1.jpeg" alt="avatar"/>
                 <img src="/avatar2.jpeg" alt="avatar"/>

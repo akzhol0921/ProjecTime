@@ -1,3 +1,6 @@
 .App {
     padding-left: 10vw;
 }
+p {
+    margin-bottom: 0;
+}
