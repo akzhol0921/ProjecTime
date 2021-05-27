@@ -1,9 +1,50 @@
 import React, {Component} from 'react';
 import './LandingPage.css'
 import Project from "../Components/Project";
+import settings from "../settings";
 
 
 class LandingPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            projects: [],
+            ProposedProject: [],
+            InProgressProject: [],
+            ReviewProject: [],
+            CompletedProject: []
+        }
+        fetch(settings.server.host + "/project/getDashboardProject?user=1")
+            .then(response => response.json())
+            .then(data => {
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].status === "Proposed") {
+                        this.setState({
+                            ProposedProject: [data[i], ...this.state.ProposedProject]
+                        })
+                    }
+                    if (data[i].status === "In Progress") {
+                        this.setState({
+                            InProgressProject: [data[i], ...this.state.InProgressProject]
+                        })
+                    }
+                    if (data[i].status === "Review") {
+                        this.setState({
+                            ReviewProject: [data[i], ...this.state.ReviewProject]
+                        })
+                    }
+                    if (data[i].status === "Completed") {
+                        this.setState({
+                            CompletedProject: [data[i], ...this.state.CompletedProject]
+                        })
+                    }
+                }
+                this.setState({
+                    projects: data
+                })
+            });
+    }
+
     render() {
         return (
             <div className="landing-page">
@@ -51,8 +92,11 @@ class LandingPage extends Component {
                             </div>
                         </div>
                         {/* project-card */}
-                        <Project/>
-                        <Project/>
+                        {
+                            this.state.ProposedProject.map(project => {
+                                return <Project projectData={project}/>
+                            })
+                        }
 
 
                     </div>
@@ -71,7 +115,11 @@ class LandingPage extends Component {
                             </div>
                         </div>
 
-                        <Project/>
+                        {
+                            this.state.InProgressProject.map(project => {
+                                return <Project projectData={project}/>
+                            })
+                        }
 
                     </div>
                     <div className="status review">
@@ -87,7 +135,11 @@ class LandingPage extends Component {
                             </div>
                         </div>
 
-                        <Project/>
+                        {
+                            this.state.ReviewProject.map(project => {
+                                return <Project projectData={project}/>
+                            })
+                        }
 
                     </div>
                     <div className="status completed">
@@ -103,7 +155,11 @@ class LandingPage extends Component {
                             </div>
                         </div>
 
-                        <Project/>
+                        {
+                            this.state.CompletedProject.map(project => {
+                                return <Project projectData={project}/>
+                            })
+                        }
 
                     </div>
                 </div>
